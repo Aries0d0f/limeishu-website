@@ -1,0 +1,921 @@
+<html>
+<head><meta name="author" content="Created with Hot Potatoes by Half-Baked Software, registered to kevin douglas."></meta><meta name="keywords" content="Hot Potatoes, Half-Baked Software, Windows, University of Victoria"></meta>
+<title>
+Exercise-2
+</title>
+
+<script language="javascript" type="text/javascript">
+
+//<![CDATA[
+
+<!--
+
+// BrowserCheck Object
+
+function BrowserCheck() {
+	var b = navigator.appName
+//HBS extension
+	this.mac = (navigator.appVersion.indexOf('Mac') != -1)
+	if (b=="Netscape") this.b = "ns"
+	else if (b=="Microsoft Internet Explorer") this.b = "ie"
+	else this.b = b
+	this.version = navigator.appVersion
+	this.v = parseInt(this.version)
+	this.ns = (this.b=="ns" && this.v>=4)
+	this.ns4 = (this.b=="ns" && this.v==4)
+	this.ns5 = (this.b=="ns" && this.v==5)
+	this.ie = (this.b=="ie" && this.v>=4)
+	this.ie4 = (this.version.indexOf('MSIE 4')>0)
+	this.ie5 = (this.version.indexOf('MSIE 5')>0)
+	this.min = (this.ns||this.ie)
+	this.CRAPBrowser = (this.ie && this.mac); //Cannot Resolve Addresses Properly
+}
+
+is = new BrowserCheck();
+
+var LocFolder = GetFolder(window.location.href);
+function GetFolder(LocPath){
+	LocPath = ReplaceStuff('\'','%27',LocPath);
+	var i = LocPath.lastIndexOf('/');
+	if (i<0){i=LocPath.lastIndexOf('\\')};
+	return LocPath.substring(0,i);
+}
+
+function CombineURLs(InURL){
+	var i = InURL.indexOf('../');
+	var s = LocFolder;
+	while (i >- 1){
+		s = GetFolder(s);
+		InURL = InURL.substring(3,InURL.length);
+		i = InURL.indexOf('../');
+	}
+	return s + '/' + InURL;
+}
+
+x = new Array();
+function ResolveURLs(InText,Attribute){
+	x.length=0;
+	var Temp = InText.toLowerCase();
+	var z;
+	var AttLen = Attribute.length + 2;
+	var y=Temp.lastIndexOf(Attribute + '="');
+	while (y>-1){
+		var sLoc = y+AttLen;
+		if (Temp.substring(sLoc,sLoc+5) != 'http:'){
+			x[x.length]=new Array();
+			x[x.length-1][0] = sLoc;
+			z = Temp.indexOf('"',sLoc);
+			x[x.length-1][1] = z;
+			x[x.length-1][2] = Temp.substring(sLoc,z);
+		}
+		Temp = Temp.substring(0,y);
+		y=Temp.lastIndexOf(Attribute + '="');
+	}
+	for (var j=0; j<x.length; j++){
+		InText = InText.substring(0,x[j][0]) + CombineURLs(x[j][2]) + InText.substring(x[j][1], InText.length);
+	}
+	return InText;
+}
+
+function ResolveAllURLs(Stuff){
+	Stuff = ResolveURLs(Stuff,'href');
+	Stuff = ResolveURLs(Stuff,'src');
+	Stuff = ResolveURLs(Stuff,'parent.location');
+	return Stuff;
+}
+
+var ExBGColor = '#bbbbee';
+
+
+
+var PageBGColor = '#ffffff';
+
+
+
+var NavBarColor = '#000066';
+
+var TextColor = '#000000';
+var CurrQNum = 0;
+var YourScoreIs = 'Your score is '; //'Your score is: ';
+var Tries = 0;
+var CorrectChoices = 0;
+var ContinuousScoring = true; //true;
+var CorrectFirstTime = 'Questions answered correctly first time: '; //'Questions answered correctly at first try: ';
+var ExerciseTitle = 'Exercise-2'; //
+var ExerciseSubtitle = 'Short-answer quiz'; //
+var Instructions = 'Type your answer, then press "Check". If you need help, you can click on the "Hint" button to get a free letter.'; //'';
+var ShuffleQs = false; //true;
+var CorrectResponse = 'Correct!';
+var TheseAnswersToo = 'Other correct answers: ';
+var ThisMuchIsCorrect = 'This part of your answer is correct: ';
+var TheseWordsAppear = 'These words appear in the answer: ';
+var IncorrectResponse = 'Sorry! Try again.';
+var EnterGuess = 'Please enter a guess.';
+var GiveHint = 'Next correct letter in the answer: ';
+var TheseCorrect = 'Correct answers: ';
+var CaseSensitive = false;
+var QsToShow = 3; //number of questions from the set to be used each time
+var ShowOneByOne = true;
+var ReadingURL = '';
+var FocusBoxes = true;
+var Score = '';
+var FinalScore = '';
+
+var PreviousPage = history.length;
+
+
+
+ReadingText='<html><head><meta name="author" content="Created with Hot Potatoes by Half-Baked Software, registered to kevin douglas."></meta><meta name="keywords" content="Hot Potatoes, Half-Baked Software, Windows, University of Victoria"></meta><title>Sanhsia Tsushih Temple</title></head><body background="" bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#0000cc"><center><table border="0" cellpadding="5" cellspacing="1" width="85%"><tr><td align="center" bgcolor="#ffffff"><font size="+1" face="Geneva,Arial" color="#000033">Sanhsia Tsushih Temple<br></br></font></td></tr><tr><td bgcolor="#bbbbee"><font face="Geneva,Arial" size="-1" color="#000000">The Tsushih Temple has long been the religious as well as community center for the people of Sanhsia, a small town located in northern Taiwan. The temple was first built in 1769. In 1833, it was rebuilt after a big earthquake. In 1895, a war broke out between China and Japan. In spite of the valiant resistance of the people of Sanhsia, the Japanese army destroyed the temple in 1895. Again it was rebuilt in 1899. <br /><br />During World War II, Taiwan was still one of Japan\'s colonies. Sanhsia was one of the towns in Taipei basin that were frequented by the American bombers. Soon after the end of the war, the local people invited Li Mei-shu, an artist-painter and native of Sanhsia, to be in charge of refurbishing the dilapidated temple. In 1947 Li formally took charge as the chief designer and planner and the third renovation went under way. In the beginning, it was a dream shared by few and cursed by many. What Li envisioned was not only an edifice for the god but also a work of art which could well represent the traditional culture of Taiwan, a far cry from what the local people had expected. Time lapsed and complaints ensued. People started to blame Li for spending so much time on the temple whereas the whole renovation remained unfinished. Nevertheless, Li devoted himself to the temple with the passion and commitment of an artist, making it the one and only temple in Taiwan where no other temples have been rebuilt for such a long time. <br /><br />The year 1997 marked the fiftieth anniversary of the third renovation of the Sanhsia Tsushih Temple. It will probably take another ten or twenty years before the whole construction is complete. What used to be a dream cursed by many has now become the cultural assets treasured by tens of thousands of Taiwanese people\u00A1K <br /><br /></font></td></tr></table></center></body></html>';
+
+
+if (is.CRAPBrowser){ReadingText=ResolveAllURLs(ReadingText);}
+
+
+var NavBar='';
+
+
+NavBar+='<tr><form name="NavButtons1" action=""><td bgcolor="#000066" align="center">';
+NavBar+='<font face="Geneva,Arial" size="-1">';
+
+NavBar+='<input type="button" value="&lt;=" onclick="parent.GoBack()"></input>';
+
+
+NavBar+='<input type="button" value="Index" onclick=\'parent.location="index.htm"\'></input>';
+
+
+NavBar+='<input type="button" value="=&gt;" onclick=\'parent.location="jmix.htm"\'></input>';
+NavBar+='</font></td></form></tr>';
+if (is.CRAPBrowser){NavBar = ResolveAllURLs(NavBar);}
+
+
+var TitleCode = '<tr><td align="center" valign="middle" bgcolor="#ffffff">';
+TitleCode += '<font size="+1" face="Geneva,Arial" color="#000033">' + ExerciseTitle + '</font><br />';
+TitleCode += '<font size="-1" face="Geneva,Arial" color="#000033">' + ExerciseSubtitle + '<br />';
+TitleCode += '</font></td></tr>';
+
+var QButtonsOpener = '<table border="0" width="85%" cellpadding="10">';
+QButtonsOpener += '<tr><td align="center" valign="middle"><form action="">';
+QButtonsOpener += '<font size="+1"><input type="button" value="&lt;=" onclick="parent.ChangeQ(-1)"></input>';
+var QButtonsCloser = '<input type="button" value="=&gt;" onclick="parent.ChangeQ(1)"></input>';
+QButtonsCloser += '</font></form></td></tr></table>';
+
+var TableOpener = '<table border="0" width="85%">';
+var QRow = '<form name="QForm[QNum]" action="" onSubmit="parent.TrapReturn(false,[QNum]); return false;">';
+QRow += '<tr><td valign="top" bgcolor="#bbbbee" align="right" width="15%">';
+QRow += '<font size="+1" face="Geneva,Arial" color="#000000">[QNumber]&nbsp;&nbsp;&nbsp;</font></td>';
+QRow += '<td valign="top" bgcolor="#bbbbee"><font size="-1" face="Geneva,Arial" color="#000000">[Question]<br />&nbsp;';
+QRow += '</font></td></tr>';
+
+var ARow = '<tr><td colspan="2" valign="top" align="center" bgcolor="#bbbbee">';
+ARow += '<font face="Geneva,Arial" color="#000000">[AnswerBox]</font></td></tr></form>';
+
+var BtnRow = '<form name="Buttons" action=""><tr><td colspan="2" valign="top" align="center" bgcolor="#bbbbee">';
+BtnRow += '<input type="button" name="Check" onclick="parent.CheckAnswer(false,[QNum])" value="Check"></input>';
+
+
+BtnRow += '<input type="button" name="Hint" onclick="parent.CheckAnswer(true,[QNum])" value="Hint"></input>';
+
+
+
+BtnRow += '<input type="button" name="Show" onclick="parent.ShowAnswers([QNum])" value="Show answer"></input>';
+
+
+BtnRow += '</td></tr></form>';
+
+TableCloser = '</table>';
+
+var LongAnswer = '<textarea name="Guess" cols="20" rows="3" wrap="virtual"></textarea>';
+var ShortAnswer = '<input type="text" name="Guess" size="[AnswerSize]"></input>';
+
+function GoBack(){
+	var BackSkip = history.length - PreviousPage;
+	if (BackSkip > 0){
+		history.go((BackSkip+1)*-1);
+	}
+	else{
+		parent.history.back();
+	}
+}
+
+function TrapReturn(ShowHint,QNum){
+//if not yet answered correctly, call CheckAnswer
+	if (Status[QNum][0] < 1){
+		CheckAnswer(ShowHint,QNum);
+		return;
+	}
+//otherwise, move on to the next question if showing serially
+	else{
+		if (ShowOneByOne == true){
+			setTimeout('ChangeQ(1)', 50);
+		}
+	}
+}	
+
+function ReduceItems(){
+	var ItemToDump=0;
+	var j=0;
+	while (I.length > QsToShow){
+		ItemToDump = Math.floor(I.length*Math.random());
+		for (j=ItemToDump; j<(I.length-1); j++){
+			I[j] = I[j+1];
+		}
+		I.length = I.length-1;
+	}
+}
+
+function Shuffle(InArray){
+	Temp = new Array();
+	var Len = InArray.length;
+
+	var j = Len;
+
+	for (var i=0; i<Len; i++){
+		Temp[i] = InArray[i];
+	}
+
+	for (i=0; i<Len; i++){
+		Num = Math.floor(j  *  Math.random());
+		InArray[i] = Temp[Num];
+
+		for (var k=Num; k < j; k++) {
+			Temp[k] = Temp[k+1];
+		}
+		j--;
+	}
+	return InArray;
+}
+
+function WriteFeedback(Feedback) {
+	if (is.CRAPBrowser){Feedback=ResolveAllURLs(Feedback);}
+//Build the output string
+	var OutString = '';
+	OutString += '<html>';
+	OutString += '<body  background="" bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#0000cc">';
+	OutString += '<center><table border="0" cellpadding="5" cellspacing="1" width="85%">';
+	OutString += NavBar;
+	if (Feedback.length>0){
+		OutString += '<tr><td bgcolor="#bbbbee" align="center">'; 
+		OutString += '<font face="Geneva,Arial" size="-1" color="#000000">';
+		OutString += Feedback;
+		OutString += '</font></td></tr>'
+	}
+	OutString += '</table></center></body></html>';
+//Write it to the frame
+	TopFrame.document.clear();
+	TopFrame.document.open();
+	TopFrame.document.write(OutString);
+	TopFrame.document.close();
+}
+
+function StartUp(){
+
+//Write the top frame
+	WriteFeedback(Instructions);
+
+	if ((is.mac)&&(is.ns)) {
+		FocusBoxes = false;
+	}
+
+//Reduce array if required
+	if (QsToShow < I.length){
+		ReduceItems();
+	}
+
+//Shuffle stuff if required
+
+	if (ShuffleQs == true){
+		I = Shuffle(I);
+	}
+
+//Create arrays
+	CreateStatusArrays();
+
+
+	if (TimerFrame != null) {
+		Stuff='<input type="button"';
+		Stuff+=' name="StartIt" value="Start reading" onclick="parent.StartReading()"></input>';
+		WriteToReading('Click on the button to see the reading.');
+		WriteToTimer(Stuff);
+	}
+
+
+
+
+//Show the first question or all of them
+	if (ShowOneByOne == false){
+		ShowAllQs();
+	}
+	else{
+		ShowQuestion(CurrQNum);
+	}
+
+//Focus the first box
+	var Box = eval('BottomFrame.document.QForm0.Guess');
+	if (Box != null){
+		Box.focus();
+	}
+}
+
+I = new Array();
+
+I[0] = new Array();
+I[0][0]='In 1947, the third _________ of the temple went under way.';
+I[0][1] = new Array();
+I[0][1][0] = new Array();
+I[0][1][0][0]='renovation';
+
+I[1] = new Array();
+I[1][0]='The __________ army destroyed the temple in 1895.';
+I[1][1] = new Array();
+I[1][1][0] = new Array();
+I[1][1][0][0]='Japanese';
+
+I[2] = new Array();
+I[2][0]='The temple was rebuilt for the second time in 1833 after an __________.';
+I[2][1] = new Array();
+I[2][1][0] = new Array();
+I[2][1][0][0]='earthquake';
+
+
+Status = new Array();
+
+
+function CreateStatusArrays(){
+	Status.length = 0;
+	for (i=0; i<I.length; i++){
+		Status[i] = new Array();
+		Status[i][0] = 0; // question done or not
+		Status[i][1] = 0; // wrong checks
+		Status[i][2] = 0; // hints asked for
+		Status[i][3] = ''; // student's answer
+		Status[i][4] = 0; // score for this question
+	}
+}
+
+function ReplaceStuff(Token, Replacement, InString){
+	var i = InString.indexOf(Token);
+	var FirstBit = '';
+	var LastBit = '';
+	while (i>-1){
+		FirstBit = InString.substring(0, i);
+		LastBit = InString.substring(i + Token.length, InString.length);	
+		InString = FirstBit + Replacement + LastBit;
+		i = InString.indexOf(Token);
+	}
+	return InString;
+}
+
+function ChangeQ(ChangeBy){
+	var NewNum = CurrQNum + ChangeBy;
+	if ((NewNum >= 0)&&(NewNum<I.length)){
+		CurrQNum = NewNum;
+		ShowQuestion(CurrQNum);
+	}
+}
+
+function BuildQuestion(QNum){
+	var Temp = ReplaceStuff('[Question]', I[QNum][0], QRow);
+
+//Measure the answers and find out what kind of
+//box to show
+	var Longest = 5;
+	for (var i=0; i<I[QNum][1].length; i++){
+		if (I[QNum][1][i][0].length > Longest){
+			Longest = I[QNum][1][i][0].length;
+		}
+	}
+
+	var AnsBox = '';
+
+	if (Longest > 20){
+		AnsBox = LongAnswer;	
+	}
+	else{
+		AnsBox = ReplaceStuff('[AnswerSize]', (Longest + ''), ShortAnswer);
+	}
+
+	var AnsRow = ReplaceStuff('[AnswerBox]', AnsBox, ARow);
+
+	Temp += AnsRow;
+	Temp += BtnRow;
+
+	Temp = ReplaceStuff('[QNumber]', QNum+1, Temp);
+	Temp = ReplaceStuff('[QNum]', QNum, Temp);
+
+	return Temp;
+}
+
+function DisplayExercise(StuffToDisplay){
+//Build the output string
+	var OutString = '';
+	OutString += '<html>';
+	OutString += '<body background="" bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#0000cc">';
+	OutString += '<center><table border="0" cellpadding="5" cellspacing="1" width="85%">';
+	OutString += TitleCode; 
+	OutString += '<tr><td bgcolor="#bbbbee" align="center">'; 
+	OutString += '<font face="Geneva,Arial" size="-1">';
+	OutString += StuffToDisplay;
+	OutString += '</font></td></tr>';
+	OutString += NavBar;
+	OutString += '</table></center></body></html>';
+
+	if (is.CRAPBrowser){OutString=ResolveAllURLs(OutString);}
+
+//Write it to the frame
+	BottomFrame.document.clear();
+	BottomFrame.document.open();
+	BottomFrame.document.write(OutString);
+	BottomFrame.document.close();
+}
+
+
+function ShowAllQs(){
+	var Output = '';
+	for (var i=0; i<I.length-1; i++){
+		Output = Output + BuildQuestion(i);
+		Output = Output + '<tr><td colspan="2"><hr></hr></td></tr>';
+	}
+	Output = Output + BuildQuestion(I.length-1);
+	Output = TableOpener + Output + TableCloser;
+	DisplayExercise(Output);
+}
+
+function ShowQuestion(QNum){
+//First, create the Q number readout at the top
+	var Readout = (QNum+1) + '/' + I.length;
+	while (Readout.length < 7){
+		Readout = ' ' + Readout + ' ';
+	}
+	Readout = QButtonsOpener + Readout + QButtonsCloser;
+
+	var Output = BuildQuestion(QNum);
+
+	Output = TableOpener + Output + TableCloser;
+
+	DisplayExercise(Readout + Output);
+
+//Replace the student's answer
+	
+	var Box = eval('BottomFrame.document.QForm' + QNum + '.Guess');
+	if (Box != null){
+		if (Status[QNum][3].length > 0){
+			Box.value = Status[QNum][3];
+		}
+		Box.focus();
+	}
+}
+
+
+function TrimString(InString){
+        var x = 0
+
+        if (InString.length != 0) {
+                while ((InString.charAt(InString.length - 1) == '\u0020') || (InString.charAt(InString.length - 1) == '\u000A') || (InString.charAt(InString.length - 1) == '\u000D')){
+                        InString = InString.substring(0, InString.length - 1)
+                }
+
+                while ((InString.charAt(0) == '\u0020') || (InString.charAt(0) == '\u000A') || (InString.charAt(0) == '\u000D')){
+                        InString = InString.substring(1, InString.length)
+                }
+
+                while (InString.indexOf('  ') != -1) {
+                        x = InString.indexOf('  ')
+                        InString = InString.substring(0, x) + InString.substring(x+1, InString.length)
+                 }
+
+                return InString;
+        }
+
+        else {
+                return '';
+        }
+
+}
+
+function RemovePunctuation(InString){
+
+var OutString = '';
+        for (i=0; i<InString.length; i++){
+                if ((InString.charAt(i) == '.') || (InString.charAt(i) == ',') ||(InString.charAt(i) == ';') || (InString.charAt(i) == ':') || (InString.charAt(i) == '!') || (InString.charAt(i) == '?') || (InString.charAt(i) == '"')){}
+                else {
+                        OutString += InString.charAt(i);
+                }
+        }
+        return OutString;
+}
+
+function CheckBeginning(Guess, Answer){
+var OutString = '';
+var i = 0;
+        while (Guess.charAt(i) == Answer.charAt(i)) {
+                OutString += Guess.charAt(i);
+                i++;
+        }
+        return OutString;
+}
+
+function CheckEnd(Guess, Answer){
+var i=0;
+var j=0;
+var OutString='';
+        i = Guess.length;
+        j = Answer.length;
+        while (Guess.charAt(i) == Answer.charAt(j)){
+                OutString = Guess.charAt(i) + OutString;
+                i--;
+                j--;
+        }
+        return OutString;
+}
+
+
+function FindLongest(InArray){
+	if (InArray.length < 1){return -1;}
+
+	var Longest = 0;
+	for (var i=1; i<InArray.length; i++){
+		if (InArray[i].length > InArray[Longest].length){
+			Longest = i;
+		}
+	}
+	return Longest;
+}
+
+function CheckWords(Guess, Answer){
+        var Start = 0;
+        var End = 0;
+        var LoopCounter = 0;
+        var ReturnList = '';
+        var i = 0;
+        var j = 0;
+
+        GuessWords = new Array();
+        AnswerWords = new Array();
+
+        Guess = RemovePunctuation(Guess);
+        Answer = RemovePunctuation(Answer);
+
+        while (Guess.indexOf(' ', Start) > -1) {
+                End = Guess.indexOf(' ', Start);
+                GuessWords[LoopCounter] = Guess.substring(Start, End).toLowerCase();
+                LoopCounter++;
+                Start = End + 1;
+        }
+        GuessWords[LoopCounter] = Guess.substring(Start, Guess.length).toLowerCase();
+
+        Start = 0;
+        LoopCounter = 0;
+
+        while (Answer.indexOf(' ', Start) > -1) {
+                End = Answer.indexOf(' ', Start);
+                AnswerWords[LoopCounter] = Answer.substring(Start, End);
+                LoopCounter++;
+                Start = End + 1;
+        }
+        AnswerWords[LoopCounter] = Answer.substring(Start, Answer.length);
+
+        ReturnList = '';
+
+        for (i = 0; i < GuessWords.length; i++){
+                for (j = 0; j < AnswerWords.length; j++){
+
+                        if (GuessWords[i] == AnswerWords[j].toLowerCase()){
+                                ReturnList = ReturnList + AnswerWords[j] + ', ' ;
+                                AnswerWords[j] = '';
+                                break;
+                        }
+                }
+        }
+        if (ReturnList.length > 0){
+                ReturnList = ReturnList.substring(0, ReturnList.length - 2);
+        }
+        return ReturnList;
+
+}
+
+function CalculateScore(){
+	Score = 0;
+	var DoneQs = 0;
+	for (i=0; i<Status.length; i++){
+		if (Status[i][0] == 1){
+			Score += Status[i][4];
+			DoneQs++;
+		}
+	}
+	Score = Math.floor((Score*100)/(DoneQs*10));
+	return Score;
+}
+
+function CheckAnswer(ShowHint, QNum){
+
+//if the question's already correct, exit gracefully
+	if (Status[QNum][0] == 1){
+		ShowAnswers(QNum);
+		return;
+	}
+
+	var Output = '';
+
+//Get the guess, trim it, and translate it if necessary
+	var Guess = TrimString(eval('BottomFrame.document.QForm' + QNum + '.Guess').value);
+
+//Save the guess
+	Status[QNum][3] = Guess;
+
+	var RealGuess = Guess;
+
+	if (CaseSensitive == false){
+		Guess = Guess.toUpperCase();
+	}
+
+	if (Guess.length < 1){
+		WriteFeedback(EnterGuess);
+		return;
+	}
+
+//Get the correct answers and put them into an array
+	CorrectAs = new Array();
+	RealAs = new Array();
+
+	for (var i=0; i<I[QNum][1].length; i++){
+		CorrectAs[i] = I[QNum][1][i][0];
+		RealAs[i] = CorrectAs[i];
+		if (CaseSensitive == false){
+			CorrectAs[i] = CorrectAs[i].toUpperCase();
+		}
+	}
+
+//Check each answer to see whether it's correct -- if so, set Status variables and exit
+	var Right = -1;
+	var OtherAnswers = '';
+	for (i=0; i<CorrectAs.length; i++){
+		if (Guess==CorrectAs[i]){Right = i;}else{OtherAnswers+=RealAs[i] + '<br />';};
+	}
+
+	if (Right > -1){
+		Status[QNum][0] = 1;
+		Output = CorrectResponse + ' ';
+
+
+		if (OtherAnswers.length > 0){
+			Output += TheseAnswersToo + '<br />' + OtherAnswers;
+		}
+
+
+//Get the score for this question
+		var HintPenalty = (Status[QNum][2]*10)/CorrectAs[Right].length;
+		Status[QNum][4]  = Math.floor((10 - Status[QNum][1]) - HintPenalty);
+
+//Check whether the quiz is finished
+		var Finished = true;
+		for (var i=0; i<Status.length; i++){
+			if (Status[i][0] == 0){Finished = false;}
+		}
+
+//Calculate scores
+		if ((Finished==true)||(ContinuousScoring==true)){
+			var Score = CalculateScore();			
+			Output = Output + YourScoreIs + ' ' + Score + '%. ';
+		}
+
+		if (Finished == true){
+			var CFT = 0;
+			for (i=0; i<Status.length; i++){
+				if ((Status[i][1] == 0)&&(Status[i][2] == 0)){
+				CFT++;
+				}
+			}
+		Output += CorrectFirstTime + CFT + '/' + I.length;
+		WriteFeedback(Output);
+
+		}
+		else{
+			WriteFeedback(Output);
+//Jump to the next question text box if there is one
+			if (QNum < I.length-1){
+				if ((FocusBoxes==true)&&(ShowOneByOne == false)){
+					eval('BottomFrame.document.QForm' + (QNum+1) + '.Guess').focus();
+				}
+			}
+		}
+	}
+
+//else the answer wasn't right
+	else {
+//increment the tries or hint variable for that question
+		if (ShowHint == false){Status[QNum][1]++;}else{Status[QNum][2]++;}
+
+//Find which answer is closest
+		CorrectBits = new Array();
+		CorrectBits[0] = new Array(); //Beginning bits
+		CorrectBits[1] = new Array(); //End bits
+		CorrectBits[2] = new Array(); //Combined bits
+		CorrectBits[3] = new Array(); //Hint (in case needed)
+
+		for (i=0; i<CorrectAs.length; i++){
+			CorrectBits[0][i] = CheckBeginning(Guess, CorrectAs[i]);
+			if (CorrectBits[0][i].length > 0){
+				CorrectBits[0][i] = RealAs[i].substring(0,CorrectBits[0][i].length);
+			}
+
+			CorrectBits[1][i] = CheckEnd(Guess, CorrectAs[i]);
+			if (CorrectBits[1][i].length > 0){
+				CorrectBits[1][i] = RealAs[i].substring(RealAs[i].length-CorrectBits[1][i].length,RealAs[i].length);
+			}
+
+			CorrectBits[2][i] = CorrectBits[0][i] + ' ... ' + CorrectBits[1][i];
+			CorrectBits[3][i] = CorrectBits[0][i] + RealAs[i].charAt(CorrectBits[0][i].length);
+			if (CorrectBits[3][i].charAt(CorrectBits[3][i].length-1) == ' '){
+				CorrectBits[3][i] += RealAs[i].charAt(CorrectBits[3][i].length);
+			}
+			CorrectBits[3][i] += '...'
+		}
+
+		var LongestCorrect = FindLongest(CorrectBits[2]);
+		if (CorrectBits[2][LongestCorrect].length > 5){
+			Output = ThisMuchIsCorrect + '<br />' + CorrectBits[2][LongestCorrect];
+		}
+		else{
+			if (ShowHint == false){
+				Output = IncorrectResponse;
+			}
+		}
+
+//Include words found in the answer
+		var FoundWords = CheckWords(Guess, CorrectAs[LongestCorrect]);
+
+
+		if (FoundWords.length > 0){
+			Output += '<br />' + TheseWordsAppear + FoundWords;
+		}
+
+
+		if (ShowHint == true){
+			Output += '<br />' + GiveHint + CorrectBits[3][LongestCorrect];
+		}
+		WriteFeedback(Output);
+//Put the focus back in the box
+		if (FocusBoxes==true){
+			eval('BottomFrame.document.QForm' + (QNum) + '.Guess').focus();
+		}
+	}
+}
+
+function ShowAnswers(QNum){
+//If the question isn't done, mark it as done. Score will be 0;
+	Status[QNum][0] = 1;
+	Status[QNum][1] = -1;
+	Status[QNum][2] = -1;
+
+//Get the correct answers and put them into a string
+	var Output = TheseCorrect + '<br />';
+
+	Output += I[QNum][1][0][0] + '<br />';
+
+
+	for (var i=1; i<I[QNum][1].length; i++){
+		Output += I[QNum][1][i][0] + '<br />';
+	}
+
+
+//Add the current score
+	Output += YourScoreIs + ' ' + CalculateScore() + '%. ';
+
+	WriteFeedback(Output);
+	return true;
+}
+
+
+function ShowReading(){
+	if (ReadingFrame != null){
+		if (ReadingURL.length > 0){
+			ReadingFrame.location.href=ReadingURL;
+		}
+		else{
+			ReadingFrame.document.clear();
+			ReadingFrame.document.open();
+			ReadingFrame.document.write(ReadingText);
+			ReadingFrame.document.close();
+		}
+	}
+}
+
+
+//Reading text/timer code
+var min
+var sec
+var ShowReadingAgain = 'Show reading again';
+
+function DownTime(mm,ss){
+	min = mm;
+	sec = ss;
+
+	if (sec==0) {
+		sec = 60;
+		min--;
+	}
+
+	sec--;
+	if (sec<10){
+		sec="0" + sec;
+	}
+
+	if (TimerFrame.document.TimerForm.face == null){
+		return;
+	}
+
+	TimerFrame.document.TimerForm.face.value= min+":"+sec;
+	if ((min==0) && (sec==0)){
+		TimesUp()
+	}
+	else{
+		setTimeout('DownTime(min,sec)',1000)
+	}
+}
+
+function StartReading(){
+	Stuff='Remaining time:';
+	Stuff+=' <input type="text" name="face" size="6" value="5:00"></input>';
+	WriteToTimer(Stuff);
+	ShowReading();
+	timeoutID=setTimeout('DownTime(5,0)',1000);
+}
+
+function TimesUp() {
+	var Stuff='';
+	if (ShowReadingAgain.length > 0) {
+		Stuff+='<input type="Button" name="StartIt" value="Show reading again" onclick="parent.StartReading()"></input>';
+		WriteToTimer(Stuff);
+	}
+	WriteToReading('Your time is over!');
+}
+
+function WriteToReading(Stuff) {
+	if (is.CRAPBrowser){Stuff=ResolveAllURLs(Stuff);}
+	ReadingFrame.document.clear();
+	ReadingFrame.document.open();
+	ReadingFrame.document.writeln ('<html>');
+	ReadingFrame.document.writeln ('<body  background="" bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#0000cc">');
+	ReadingFrame.document.writeln ('<center><table border="0" cellpadding="5" cellspacing="1" width="85%">');
+	ReadingFrame.document.writeln ('<tr><td bgcolor="#bbbbee" align="center">') 
+	ReadingFrame.document.writeln ('<font face="Geneva,Arial" size="-1">');
+	ReadingFrame.document.writeln (Stuff);
+	ReadingFrame.document.writeln ('</font></TD></tr></table></center></body></html>');
+	ReadingFrame.document.close();
+}
+
+function WriteToTimer(Stuff){
+	if (is.CRAPBrowser){Stuff=ResolveAllURLs(Stuff);}
+	TimerFrame.document.clear();
+	TimerFrame.document.open();
+	TimerFrame.document.writeln ('<html>');
+	TimerFrame.document.writeln ('<body  background="" bgcolor="#ffffff" text="#000000" LINK="#0000ff" vlink="#0000cc">');
+	TimerFrame.document.writeln ('<center><table border="0" cellpadding="5" cellspacing="1" width="85%">');
+	TimerFrame.document.writeln ('<FORM NAME="TimerForm"><tr><td bgcolor="#bbbbee" align="center">') 
+	TimerFrame.document.writeln ('<font face="Geneva,Arial" size="-1">');
+	TimerFrame.document.writeln (Stuff);
+	TimerFrame.document.writeln ('</font></td></tr></form></table></center></body></html>');
+	TimerFrame.document.close();
+}
+
+
+
+
+function Blank(){
+	return '<html><body>&copy;Half-Baked Software. Loading...</body></html>';
+}
+
+//-->
+
+//]]>
+
+</script>
+
+
+</head>
+<!--<body>Fool those dumb ad-inserting ISPs</body>-->
+
+<!--For full XHTML 1.0 compatibility, remove the border and framespacing attributes.
+These are required for proper display in current browsers, but render the document incompatible. Then, you'll need to add the appropriate Document Type Declaration; use
+the W3C XHTML 1 frameset DTD.-->
+
+
+
+
+
+
+
+<frameset cols = "50%,50%" framespacing="0" border="0">
+  <frameset rows = "25%,*"framespacing="0" border="0" onload="StartUp()">
+	<frame src="javascript:parent.Blank()" frameborder="0" name="TopFrame"></frame>
+	<frame src="javascript:parent.Blank()" frameborder="0" name="BottomFrame"></frame>
+  </frameset>
+  <frameset rows = "20%,*" framespacing="0" border="0">
+      <frame src="javascript:parent.Blank()" frameborder="0" name="TimerFrame"></frame>
+      <frame src="javascript:parent.Blank()" frameborder="0" name="ReadingFrame"></frame>
+   </frameset>
+</frameset>
+
+
+
+</html>

@@ -1,0 +1,597 @@
+<html>
+<head><meta name="author" content="Created with Hot Potatoes by Half-Baked Software, registered to kevin douglas."></meta><meta name="keywords" content="Hot Potatoes, Half-Baked Software, Windows, University of Victoria"></meta>
+<title>
+Exercise-3
+</title>
+
+<script language="javascript" type="text/javascript">
+
+//<![CDATA[
+
+<!--
+// BrowserCheck Object
+
+function BrowserCheck() {
+	var b = navigator.appName
+//HBS extension
+	this.mac = (navigator.appVersion.indexOf('Mac') != -1)
+	if (b=="Netscape") this.b = "ns"
+	else if (b=="Microsoft Internet Explorer") this.b = "ie"
+	else this.b = b
+	this.version = navigator.appVersion
+	this.v = parseInt(this.version)
+	this.ns = (this.b=="ns" && this.v>=4)
+	this.ns4 = (this.b=="ns" && this.v==4)
+	this.ns5 = (this.b=="ns" && this.v==5)
+	this.ie = (this.b=="ie" && this.v>=4)
+	this.ie4 = (this.version.indexOf('MSIE 4')>0)
+	this.ie5 = (this.version.indexOf('MSIE 5')>0)
+	this.min = (this.ns||this.ie)
+	this.CRAPBrowser = (this.ie && this.mac); //Cannot Resolve Addresses Properly
+}
+
+is = new BrowserCheck();
+
+var LocFolder = GetFolder(window.location.href);
+function GetFolder(LocPath){
+	LocPath = ReplaceStuff('\'','%27',LocPath);
+	var i = LocPath.lastIndexOf('/');
+	if (i<0){i=LocPath.lastIndexOf('\\')};
+	return LocPath.substring(0,i);
+}
+
+function CombineURLs(InURL){
+	var i = InURL.indexOf('../');
+	var s = LocFolder;
+	while (i >- 1){
+		s = GetFolder(s);
+		InURL = InURL.substring(3,InURL.length);
+		i = InURL.indexOf('../');
+	}
+	return s + '/' + InURL;
+}
+
+x = new Array();
+function ResolveURLs(InText,Attribute){
+	x.length=0;
+	var Temp = InText.toLowerCase();
+	var z;
+	var AttLen = Attribute.length + 2;
+	var y=Temp.lastIndexOf(Attribute + '="');
+	while (y>-1){
+		var sLoc = y+AttLen;
+		if (Temp.substring(sLoc,sLoc+5) != 'http:'){
+			x[x.length]=new Array();
+			x[x.length-1][0] = sLoc;
+			z = Temp.indexOf('"',sLoc);
+			x[x.length-1][1] = z;
+			x[x.length-1][2] = Temp.substring(sLoc,z);
+		}
+		Temp = Temp.substring(0,y);
+		y=Temp.lastIndexOf(Attribute + '="');
+	}
+	for (var j=0; j<x.length; j++){
+		InText = InText.substring(0,x[j][0]) + CombineURLs(x[j][2]) + InText.substring(x[j][1], InText.length);
+	}
+	return InText;
+}
+
+function ResolveAllURLs(Stuff){
+	Stuff = ResolveURLs(Stuff,'href');
+	Stuff = ResolveURLs(Stuff,'src');
+	Stuff = ResolveURLs(Stuff,'parent.location');
+	return Stuff;
+}
+var CorrectResponse = 'Correct!';
+var IncorrectResponse = 'Sorry! Try again.';
+var TheseAnswersToo = 'These answers are also correct:';
+var ThisMuchCorrect = 'This much of your answer is correct:';
+var RemainingWords = 'Remaining words:';
+var NextCorrect = 'The next correct part is: ';
+var YourScoreIs = 'Your score is ';
+var CapitalizeFirst = false;
+var ExerciseTitle = 'Exercise-3';;
+var ExerciseSubtitle = 'Mixed-up sentence exercise';;
+var Instructions = 'Put the parts in order to form a sentence. When you think your answer is correct, click on "Check" to check your answer. If you get stuck, click on "Hint" to find out the next correct part.'; //'';
+var DefaultResponse = '[strDefaultResponse]';
+var Penalties = 0;
+
+var PreviousPage = history.length;
+
+var ReadingURL = '';
+
+
+
+
+
+
+
+var NavBar='';
+
+
+NavBar+='<tr><form name="NavButtons1" action=""><td bgcolor="#000066" align="center">';
+NavBar+='<font face="Geneva,Arial" size="-1">';
+
+NavBar+='<input type="button" value="&lt;=" onclick="parent.GoBack()"></input>';
+
+
+NavBar+='<input type="button" value="Index" onclick=\'parent.location="index.htm"\'></input>';
+
+
+NavBar+='<input type="button" value="=&gt;" onclick=\'parent.location="jcross.htm"\'></input>';
+NavBar+='</font></td></form></tr>';
+if (is.CRAPBrowser){NavBar = ResolveAllURLs(NavBar);}
+
+
+var TitleCode = '<tr><td align="center" valign="middle" bgcolor="#ffffff">';
+TitleCode += '<font size="+1" face="Geneva,Arial" color="#000033">' + ExerciseTitle + '</font><br />';
+TitleCode += '<font size="-1" face="Geneva,Arial" color="#000033">' + ExerciseSubtitle + '<br />';
+TitleCode += '</font></td></tr>';
+
+var TableOpener = '<center><table border="0">';
+
+var SegRowOpener = '<tr><td valign="middle" align="center" bgcolor="#bbbbee">';
+SegRowOpener += '<font face="Geneva,Arial" color="#000000" size="+1"><br />';
+
+var SegRowCloser = '<br /><br /></td></tr>';
+
+var ButtonRowOpener = '<form name="ButtonForm"><tr><td valign="middle" align="center" bgcolor="#bbbbee">';
+ButtonRowOpener += '<font face="Geneva,Arial" color="#000000">';
+
+var ButtonRowCloser = '<br /></td></tr></form>';
+
+var SegmentTemplate = '&nbsp; &nbsp;<a href="javascript:parent.DoNothing()" onclick="parent.AddSegment([SegmentNumber])" onMouseOver="window.status=\'Click on words to add them to the sentence.\';return true"><font color="#000000">[CurrentSegment]</font></a>&nbsp; &nbsp;';
+
+var CheckButton = '<input type="button" value="Check" OnClick="parent.CheckAnswer(0)"></input>';
+
+
+var UndoButton = '<input type="button" value="Undo"  onclick="parent.Undo()"></input>';
+
+
+
+var RestartButton = '<input type="button" value="Restart"  onclick="parent.Restart()"></input>';
+
+
+var HintButton = '<input type="button" value="Hint"  onclick="parent.CheckAnswer(1)"></input>';
+
+
+TableCloser = '</form></table></center>';
+
+var Exercise = '';
+
+var Punctuation = ')}]!;:?,.\u0085\u0092\u0094\u009B\u00A8\u00B4\u00B7\u00BB';
+
+var Openers = '"({[\u0082\u0084\u008B\u0091\u0093\u00A1\u00AB\u00BF';
+
+var Guesses = new Array();
+var Remaining = new Array();
+var CorrectParts = new Array();
+
+var ClosestMatch = 0;
+var Segments = new Array();
+Segments[0] = new Array();
+Segments[0][0] = 'shared';
+Segments[0][1] = 5;
+Segments[0][2] = 0;
+Segments[1] = new Array();
+Segments[1][0] = 'by few';
+Segments[1][1] = 6;
+Segments[1][2] = 0;
+Segments[2] = new Array();
+Segments[2][0] = 'dream';
+Segments[2][1] = 4;
+Segments[2][2] = 0;
+Segments[3] = new Array();
+Segments[3][0] = 'was';
+Segments[3][1] = 2;
+Segments[3][2] = 0;
+Segments[4] = new Array();
+Segments[4][0] = 'It';
+Segments[4][1] = 1;
+Segments[4][2] = 0;
+Segments[5] = new Array();
+Segments[5][0] = '.';
+Segments[5][1] = 7;
+Segments[5][2] = 0;
+Segments[6] = new Array();
+Segments[6][0] = 'a';
+Segments[6][1] = 3;
+Segments[6][2] = 0;
+
+
+var GuessSequence = new Array();
+
+var Answers = new Array();
+Answers[0] = new Array(1,2,3,4,5,6,7);
+
+
+function GoBack(){
+	var BackSkip = history.length - PreviousPage;
+	if (BackSkip > 0){
+		history.go((BackSkip+1)*-1);
+	}
+	else{
+		parent.history.back();
+	}
+}
+
+function Shuffle(InArray){
+	Temp = new Array();
+	var Len = InArray.length;
+
+	var j = Len;
+
+	for (var i=0; i<Len; i++){
+		Temp[i] = InArray[i];
+	}
+
+	for (i=0; i<Len; i++){
+		Num = Math.floor(j  *  Math.random());
+		InArray[i] = Temp[Num];
+
+		for (var k=Num; k < j; k++) {
+			Temp[k] = Temp[k+1];
+		}
+		j--;
+	}
+	return InArray;
+}
+
+function WriteFeedback(Feedback) {
+	if (is.CRAPBrowser){Feedback=ResolveAllURLs(Feedback);}
+//Build the output string
+	var OutString = '';
+	OutString += '<html>';
+	OutString += '<body  background="" bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#0000cc">';
+	OutString += '<center><table border="0" cellpadding="5" cellspacing="1" width="85%">';
+	OutString += NavBar;
+	if (Feedback.length>0){
+		OutString += '<tr><td bgcolor="#bbbbee" align="center">'; 
+		OutString += '<font face="Geneva,Arial" size="-1" color="#000000">';
+		OutString += Feedback;
+		OutString += '</font></td></tr>'
+	}
+	OutString += '</table></center></body></html>';
+//Write it to the frame
+	TopFrame.document.clear();
+	TopFrame.document.open();
+	TopFrame.document.write(OutString);
+	TopFrame.document.close();
+}
+
+function Restart(){
+	Penalties = 0;
+	GuessSequence.length = 0;
+	Segments = Shuffle(Segments);
+	BuildCurrGuess();
+	WriteFeedback(RemainingWords + '<br /><i>' + RemainingList + '</i>');
+	BuildExercise();
+	DisplayExercise(Exercise);
+}
+
+function Undo(){
+	if (GuessSequence.length < 1){
+		return;
+	}
+	GuessSequence.length = GuessSequence.length - 1;
+	BuildCurrGuess();
+	WriteFeedback('<i><font size="+1">' + Output + '</font></i><br /><br />' + RemainingWords + '<br /><i>' + RemainingList + '</i>');
+	BuildExercise();
+	DisplayExercise(Exercise);
+}
+
+function AddSegment(SegNum){
+	GuessSequence[GuessSequence.length] = SegNum;
+	BuildCurrGuess();
+	WriteFeedback('<font size="+1">' + Output + '</font>');
+//	WriteFeedback('<i>' + Output + '</i><br /><br />' + RemainingWords + '<br /><i>' + RemainingList + '</i>');
+	BuildExercise();
+	DisplayExercise(Exercise);
+}
+
+function BuildCurrGuess(){
+
+	var i = 0;
+	var j = 0;
+	var NewSeg = '';
+
+//first, create arrays of all the segments guessed so far and those not yet used
+	GuessSegs = new Array();
+	GuessSegs.length = 0;
+
+//set the "used" markers all to 0
+	for (i=0; i<Segments.length; i++){
+		Segments[i][2] = 0;
+	}
+
+	for (i=0; i<GuessSequence.length; i++){
+		for (j=0; j<Segments.length; j++){
+			if ((Segments[j][1] == GuessSequence[i])&&(Segments[j][2] == 0)){
+				GuessSegs[GuessSegs.length] = Segments[j][0];
+				Segments[j][2] = 1;
+				break;
+			}
+		}
+	}
+
+//Create the list of unused segments
+	RemainingList = '';
+	for (i=0; i<Segments.length; i++){
+		if (Segments[i][2] == 0){
+			RemainingList += Segments[i][0] + '&nbsp; &nbsp;&nbsp;';
+		}
+	}
+	
+//now concatenate the segments, adding spaces where appropriate;
+	Output = CompileString(GuessSequence);
+}
+
+function CompileString(InArray){
+	var OutString = '';
+	var i = 0;
+	OutArray = new Array();
+
+	for (i=0; i<InArray.length; i++){
+		OutArray[OutArray.length] = FindSegment(InArray[i]);
+	}
+
+	if (OutArray.length > 0){
+		OutString = OutArray[0];
+	}
+	else{
+		OutString = '';
+	}
+	var Spacer = '';
+
+	for (i=1; i<OutArray.length; i++){
+		Spacer = ' ';
+		if ((Openers.indexOf(OutString.charAt(OutString.length-1)) > -1)||(Punctuation.indexOf(OutArray[i].charAt(0)) > -1)){
+			Spacer = '';
+		}
+		OutString = OutString + Spacer + OutArray[i];		
+	}
+
+//Capitalize the first letter if necessary
+	if (CapitalizeFirst == true){
+		i = 0;
+		if ((Openers.indexOf(OutString.charAt(i))>-1)||(OutString.charAt(i) == ' ')){
+			i++;
+		}
+		if ((Openers.indexOf(OutString.charAt(i))>-1)||(OutString.charAt(i) == ' ')){
+			i++;
+		}
+		var Temp = OutString.charAt(i);
+		Temp = Temp.toUpperCase();
+		OutString = OutString.substring(0, i) + Temp + OutString.substring(i+1, OutString.length);
+	}
+	return OutString;
+}
+function CheckAnswer(CheckType){
+
+	if (GuessSequence.length < 1){
+		if (CheckType == 1){
+			WriteFeedback(NextCorrect + '<br /><i>' + FindSegment(Answers[0][0]) + '</i>');
+			Penalties++;
+		}
+		return;
+	}
+
+	var i = 0;
+	var j = 0;
+	var k = 0;
+	var WellDone = '';
+	var WhichCorrect = -1;
+	var TryAgain = '';
+	var LongestCorrectBit = '';
+	TempCorrect = new Array();
+	LongestCorrect = new Array();
+	var TempHint = '';
+	var HintToReturn = 1;
+	var OtherAnswers = '';
+
+	for (i=0; i<Answers.length; i++){
+		TempCorrect.length = 0;
+		for (j=0; j<Answers[i].length; j++){
+			if (Answers[i][j] == GuessSequence[j]){
+				TempCorrect[j] = GuessSequence[j];
+			}
+			else{
+				TempHint = Answers[i][j];
+				break;
+			}
+		}
+		if ((TempCorrect.length == GuessSequence.length)&&(TempCorrect.length == Answers[i].length)){
+			WhichCorrect = i;
+			break;
+		}
+		else{
+			if (TempCorrect.length > LongestCorrect.length){
+				LongestCorrect.length = 0;
+				for (k=0; k<TempCorrect.length; k++){
+					LongestCorrect[k] = TempCorrect[k];
+				}
+				HintToReturn = TempHint;
+			} 
+		}	
+	}
+	if (WhichCorrect > -1){
+		for (i=0; i<Answers.length; i++){
+			if (i!=WhichCorrect){
+				OtherAnswers += '<br />' + CompileString(Answers[i]);
+			}
+		}
+
+		WellDone = '<i>' + Output + '</i><br /><br />' + CorrectResponse + '<br />';
+
+//Do score calculation here
+		var Score = Math.floor(((Segments.length-Penalties) * 100)/Segments.length);
+		WellDone += YourScoreIs + ' ' + Score + '%.<br />';
+
+
+		if (OtherAnswers.length > 0){
+			WellDone += TheseAnswersToo + '<i>' + OtherAnswers + '</i>';
+		}
+
+
+		WriteFeedback(WellDone);
+
+		return;
+	}
+
+	else{
+		TryAgain = '<i>' + CompileString(GuessSequence) + '</i><br /><br />';
+		Penalties++;
+		if (CheckType == 0){
+			TryAgain += IncorrectResponse + '<br />';
+		}
+
+		if (LongestCorrect.length > 0){
+			LongestCorrectBit = CompileString(LongestCorrect);
+			GuessSequence.length = LongestCorrect.length;
+			TryAgain += ThisMuchCorrect + '<br /><i>' + LongestCorrectBit + '</i><br />';
+		}
+
+		if (CheckType == 1){
+			TryAgain += NextCorrect + '<br />' + FindSegment(HintToReturn);
+		}
+
+		WriteFeedback(TryAgain);
+		BuildCurrGuess();
+		BuildExercise();
+		DisplayExercise(Exercise);
+	}
+}
+
+function FindSegment(SegID){
+	var Seg = '';
+	for (var i=0; i<Segments.length; i++){
+		if (Segments[i][1] == SegID){
+			Seg = Segments[i][0];
+			break;
+		}
+	}
+	return Seg;
+}
+
+function DoNothing(){}
+
+function StartUp(){
+
+
+//Shuffle the array
+	Segments = Shuffle(Segments);
+
+//Write the top frame
+	WriteFeedback(Instructions);
+
+
+
+//Build and show the exercise
+	BuildExercise();
+	DisplayExercise(Exercise);
+
+}
+
+function BuildExercise(){
+	Exercise = '';
+
+	var ButtonRow = ButtonRowOpener + CheckButton;
+
+	ButtonRow += UndoButton;
+
+
+	ButtonRow += RestartButton;
+
+
+	ButtonRow += HintButton;
+
+	ButtonRow += ButtonRowCloser;
+
+	var SegRow = SegRowOpener;
+	var TempRow = '';
+
+	for (var i=0; i<Segments.length; i++){
+//if the segment hasn't been used yet
+		if (Segments[i][2] == 0){
+			TempRow = SegmentTemplate;
+			TempRow = ReplaceStuff('[SegmentNumber]', Segments[i][1], TempRow);
+			TempRow = ReplaceStuff('[CurrentSegment]', Segments[i][0], TempRow);
+			SegRow += TempRow;
+		}
+	}
+
+	SegRow += SegRowCloser;
+
+//Make it into a table
+	Exercise = TableOpener + ButtonRow + SegRow + TableCloser;
+}
+
+function ReplaceStuff(Token, Replacement, InString){
+	var i = InString.indexOf(Token);
+	var FirstBit = '';
+	var LastBit = '';
+	while (i>-1){
+		FirstBit = InString.substring(0, i);
+		LastBit = InString.substring(i + Token.length, InString.length);	
+		InString = FirstBit + Replacement + LastBit;
+		i = InString.indexOf(Token);
+	}
+	return InString;
+}
+
+function DisplayExercise(StuffToDisplay){
+//Build the output string
+	var OutString = '';
+	OutString += '<html>';
+	OutString += '<body  background="" bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#0000cc">';
+	OutString += '<center><table border="0" cellpadding="5" cellspacing="1" width="85%">';
+	OutString += TitleCode; 
+	OutString += '<tr><td bgcolor="#bbbbee" align="center">'; 
+	OutString += '<font face="Geneva,Arial" size="-1">';
+	OutString += StuffToDisplay;
+	OutString += '</font></td></tr>';
+	OutString += NavBar;
+	OutString += '</table></center></body></html>';
+
+	if (is.CRAPBrowser){OutString=ResolveAllURLs(OutString);}
+
+//Write it to the frame
+	BottomFrame.document.clear();
+	BottomFrame.document.open();
+	BottomFrame.document.write(OutString);
+	BottomFrame.document.close();
+}
+
+
+
+
+
+
+function Blank(){
+	return '<html><body>&copy;Half-Baked Software. Loading...</body></html>';
+}
+
+//-->
+
+//]]>
+
+</script>
+
+
+</head>
+<!--<body>Fool those dumb ad-inserting ISPs</body>-->
+
+<!--For full XHTML 1.0 compatibility, remove the border and framespacing attributes.
+These are required for proper display in current browsers, but render the document incompatible. Then, you'll need to add the appropriate Document Type Declaration; use
+the W3C XHTML 1 frameset DTD.-->
+
+
+<frameset rows="30%,*" framespacing="0" border="0" onload="StartUp()">
+	<frame src="javascript:parent.Blank()" frameborder="0" name="TopFrame"></frame>
+	<frame src="javascript:parent.Blank()" frameborder="0" name="BottomFrame"></frame>
+</frameset>
+
+
+
+
+</html>

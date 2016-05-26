@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<hotpot-jbc-file>
+<version>5</version>
+
+<data>
+<title>Exercies-1</title>
+
+<reading>
+<include-reading>1</include-reading>
+<include-timer>1</include-timer>
+<time-limit>5</time-limit>
+<internal-reading>1</internal-reading>
+<path-to-reading></path-to-reading>
+<reading-title>Li Mei-shu - A Brief Biography</reading-title>
+<reading-text>Born in 1902 in Sanhsia, Taiwan, Li Mei-shu had developed an affection for drawing since early childhood. In pursuit of his dream of becoming a painter, Li left for Japan in 1928. In the March of 1929 he was admitted to the Tokyo School of Fine Arts where he concentrated on the study of such different schools as Classicism, Romanticism and Realism. 
+Shortly after his graduation from the art school in 1934, Li returned to his hometown, Sanhsia, to which he had a profound commitment. As a painter, Li used his paintbrushes to fulfill this commitment, manifesting his love of the people and nature on many a canvas. In the meantime, he was also active in promoting fine arts in Taiwan. As a result, Li, together with his fellow painters, founded the Taiyang Fine Arts Association, the first ever in Taiwan.
+In addition, Li was appointed to a professorship of fine arts at Chinese Culture University as well as National College of Arts. He also held a chair at National Taiwan Normal University in 1975 
+From 1947 through 1982, Li chaired the Reconstruction Committee of Sanhsia Tsushih Temple, taking charge of renovating the dilapidated temple. What with painstaking design and what with prudent planning, he filled the temple with a new life, making it the symbol of Taiwanese traditional arts.
+Gifted and versatile artist as he was, Li received his first lesson in realism at the art school in Japan. And realism remained the principle he lived by as an artist for the rest of his life even though there were times when fauvism or abstractionism was the mainstream. Somehow realism was the only way, as Li himself described, which &quot;could best serve my faith in depicting the true beauty of rural life in Taiwan.&quot; Persistent and determined as he was, Li Mei-shu has been thus regarded as the &quot;Great Wall&quot; in the art history of Taiwan. 
+
+</reading-text>
+
+</reading>
+
+<questions>
+
+
+<question-record>
+<question>Where was Li Mei-shu born?</question>
+<must-select-all>0</must-select-all>
+<answer>
+<text>Taipei</text>
+<correct>0</correct>
+<feedback></feedback>
+</answer>
+<answer>
+<text>Kaohsiung</text>
+<correct>0</correct>
+<feedback></feedback>
+</answer>
+<answer>
+<text>Sanhsia</text>
+<correct>1</correct>
+<feedback></feedback>
+</answer>
+<answer>
+<text>Taichung</text>
+<correct>0</correct>
+<feedback></feedback>
+</answer>
+
+</question-record>
+
+<question-record>
+<question>Where did Li Mei-shu study art?</question>
+<must-select-all>0</must-select-all>
+<answer>
+<text>Paris</text>
+<correct>0</correct>
+<feedback></feedback>
+</answer>
+<answer>
+<text>Tokyo</text>
+<correct>1</correct>
+<feedback></feedback>
+</answer>
+<answer>
+<text>London</text>
+<correct>0</correct>
+<feedback></feedback>
+</answer>
+<answer>
+<text>New York</text>
+<correct>0</correct>
+<feedback></feedback>
+</answer>
+
+</question-record>
+
+<question-record>
+<question>What kind of aritist-painter was Li Mei-shu?</question>
+<must-select-all>0</must-select-all>
+<answer>
+<text>an abstractionist</text>
+<correct>0</correct>
+<feedback></feedback>
+</answer>
+<answer>
+<text>a surrealist</text>
+<correct>0</correct>
+<feedback></feedback>
+</answer>
+<answer>
+<text>an impressionist</text>
+<correct>0</correct>
+<feedback></feedback>
+</answer>
+<answer>
+<text>a realist</text>
+<correct>1</correct>
+<feedback></feedback>
+</answer>
+
+</question-record>
+
+<question-record>
+<question>Choose the correct answers.</question>
+<must-select-all>1</must-select-all>
+<answer>
+<text>Li Mei-shu was a temple architect.</text>
+<correct>1</correct>
+<feedback></feedback>
+</answer>
+<answer>
+<text>Li Mei-shu was born in Japan.</text>
+<correct>0</correct>
+<feedback></feedback>
+</answer>
+<answer>
+<text>Li Mei-shu was in charge of renovating the Tsushih Temple.</text>
+<correct>1</correct>
+<feedback></feedback>
+</answer>
+<answer>
+<text>Li Mei-shu studied art in France.</text>
+<correct>0</correct>
+<feedback></feedback>
+</answer>
+
+</question-record>
+</questions>
+</data>
+
+<hotpot-config-file>
+<jbc>
+<exercise-subtitle>Multiple-choice exercise</exercise-subtitle>
+<instructions>Choose the correct answer for each question.</instructions>
+<guess-correct>Correct!</guess-correct>
+<guess-incorrect>Sorry! Try again.</guess-incorrect>
+<next-ex-url>jquiz.htm</next-ex-url>
+<send-email>0</send-email>
+<top-frame-size>25</top-frame-size><top-frame-units>%</top-frame-units>
+<continuous-scoring>1</continuous-scoring>
+<shuffle-questions>0</shuffle-questions>
+<shuffle-answers>0</shuffle-answers>
+<show-one-by-one>1</show-one-by-one>
+<show-limited-questions>0</show-limited-questions>
+<questions-to-show>3</questions-to-show>
+</jbc>
+
+<global>
+<your-score-is>Your score is </your-score-is>
+<correct-indicator>:-)</correct-indicator>
+<incorrect-indicator>X</incorrect-indicator>
+<correct-first-time>Questions answered correctly first time: </correct-first-time>
+<remaining-time>Remaining time:</remaining-time>
+<start-reading>Start reading</start-reading>
+<show-reading-again>Show reading again</show-reading-again>
+<times-up>Your time is over!</times-up>
+<click-to-show>Click on the button to see the reading.</click-to-show>
+<next-ex-caption>=&gt;</next-ex-caption>
+<back-caption>&lt;=</back-caption>
+<contents-caption>Index</contents-caption>
+<include-next-ex>1</include-next-ex>
+<include-contents>1</include-contents>
+<include-back>1</include-back>
+<contents-url>index.htm</contents-url>
+<graphic-url></graphic-url>
+<font-face>Geneva,Arial</font-face>
+<page-bg-color>#ffffff</page-bg-color>
+<title-color>#000033</title-color>
+<ex-bg-color>#bbbbee</ex-bg-color>
+<text-color>#000000</text-color>
+<link-color>#0000ff</link-color>
+<vlink-color>#0000cc</vlink-color>
+<nav-bar-color>#000066</nav-bar-color>
+<formmail-url>http://your.server.address/cgi-bin/FormMail.pl</formmail-url>
+<email>you@yourplace.com</email>
+<name-please>Please enter your name:</name-please>
+<correct-first-time>Questions answered correctly first time: </correct-first-time>
+<check-caption>Check</check-caption>
+</global>
+</hotpot-config-file>
+</hotpot-jbc-file>

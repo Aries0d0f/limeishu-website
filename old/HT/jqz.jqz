@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<hotpot-jquiz-file>
+<version>5</version>
+
+<data>
+<title>Exercise-2</title>
+
+<reading>
+<include-reading>1</include-reading>
+<include-timer>1</include-timer>
+<time-limit>5</time-limit>
+<internal-reading>1</internal-reading>
+<path-to-reading></path-to-reading>
+<reading-title>Sanhsia Tsushih Temple</reading-title>
+<reading-text>The Tsushih Temple has long been the religious as well as community center for the people of Sanhsia, a small town located in northern Taiwan. The temple was first built in 1769. In 1833, it was rebuilt after a big earthquake. In 1895, a war broke out between China and Japan. In spite of the valiant resistance of the people of Sanhsia, the Japanese army destroyed the temple in 1895. Again it was rebuilt in 1899. 
+
+During World War II, Taiwan was still one of Japan&apos;s colonies. Sanhsia was one of the towns in Taipei basin that were frequented by the American bombers. Soon after the end of the war, the local people invited Li Mei-shu, an artist-painter and native of Sanhsia, to be in charge of refurbishing the dilapidated temple. In 1947 Li formally took charge as the chief designer and planner and the third renovation went under way. In the beginning, it was a dream shared by few and cursed by many. What Li envisioned was not only an edifice for the god but also a work of art which could well represent the traditional culture of Taiwan, a far cry from what the local people had expected. Time lapsed and complaints ensued. People started to blame Li for spending so much time on the temple whereas the whole renovation remained unfinished. Nevertheless, Li devoted himself to the temple with the passion and commitment of an artist, making it the one and only temple in Taiwan where no other temples have been rebuilt for such a long time. 
+
+The year 1997 marked the fiftieth anniversary of the third renovation of the Sanhsia Tsushih Temple. It will probably take another ten or twenty years before the whole construction is complete. What used to be a dream cursed by many has now become the cultural assets treasured by tens of thousands of Taiwanese people¡K 
+
+</reading-text>
+
+</reading>
+
+<questions>
+
+
+<question-record>
+<question>In 1947, the third _________ of the temple went under way.</question>
+<answer>
+<text>renovation</text>
+<correct>1</correct>
+<feedback></feedback>
+</answer>
+
+</question-record>
+
+<question-record>
+<question>The __________ army destroyed the temple in 1895.</question>
+<answer>
+<text>Japanese</text>
+<correct>1</correct>
+<feedback></feedback>
+</answer>
+
+</question-record>
+
+<question-record>
+<question>The temple was rebuilt for the second time in 1833 after an __________.</question>
+<answer>
+<text>earthquake</text>
+<correct>1</correct>
+<feedback></feedback>
+</answer>
+
+</question-record>
+</questions>
+</data>
+
+<hotpot-config-file>
+<jquiz>
+<exercise-subtitle>Short-answer quiz</exercise-subtitle>
+<instructions>Type your answer, then press &quot;Check&quot;. If you need help, you can click on the &quot;Hint&quot; button to get a free letter.</instructions>
+<guess-correct>Correct!</guess-correct>
+<guess-incorrect>Sorry! Try again.</guess-incorrect>
+<also-correct>Other correct answers: </also-correct>
+<this-much-correct>This part of your answer is correct: </this-much-correct>
+<enter-a-guess>Please enter a guess.</enter-a-guess>
+<these-words-correct>These words appear in the answer: </these-words-correct>
+<next-correct-letter>Next correct letter in the answer: </next-correct-letter>
+<correct-answers>Correct answers: </correct-answers>
+<show-answer-caption>Show answer</show-answer-caption>
+<include-hint>1</include-hint>
+<include-show-answer>1</include-show-answer>
+<show-these-words-correct>1</show-these-words-correct>
+<next-ex-url>jmix.htm</next-ex-url>
+<send-email>0</send-email>
+<top-frame-size>25</top-frame-size><top-frame-units>%</top-frame-units>
+<continuous-scoring>1</continuous-scoring>
+<shuffle-questions>0</shuffle-questions>
+<case-sensitive>0</case-sensitive>
+<show-one-by-one>1</show-one-by-one>
+<show-limited-questions>0</show-limited-questions>
+<questions-to-show>1</questions-to-show>
+</jquiz>
+
+<global>
+<remaining-time>Remaining time:</remaining-time>
+<start-reading>Start reading</start-reading>
+<show-reading-again>Show reading again</show-reading-again>
+<times-up>Your time is over!</times-up>
+<click-to-show>Click on the button to see the reading.</click-to-show>
+<hint-caption>Hint</hint-caption>
+<check-caption>Check</check-caption>
+<next-ex-caption>=&gt;</next-ex-caption>
+<back-caption>&lt;=</back-caption>
+<contents-caption>Index</contents-caption>
+<include-next-ex>1</include-next-ex>
+<include-contents>1</include-contents>
+<include-back>1</include-back>
+<contents-url>index.htm</contents-url>
+<graphic-url></graphic-url>
+<font-face>Geneva,Arial</font-face>
+<page-bg-color>#ffffff</page-bg-color>
+<title-color>#000033</title-color>
+<ex-bg-color>#bbbbee</ex-bg-color>
+<text-color>#000000</text-color>
+<link-color>#0000ff</link-color>
+<vlink-color>#0000cc</vlink-color>
+<nav-bar-color>#000066</nav-bar-color>
+<formmail-url>http://your.server.address/cgi-bin/FormMail.pl</formmail-url>
+<email>you@yourplace.com</email>
+<name-please>Please enter your name:</name-please>
+<your-score-is>Your score is </your-score-is>
+<correct-first-time>Questions answered correctly first time: </correct-first-time>
+<show-these-words-correct>1</show-these-words-correct>
+</global>
+</hotpot-config-file>
+</hotpot-jquiz-file>

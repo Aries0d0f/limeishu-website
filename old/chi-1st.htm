@@ -1,0 +1,380 @@
+<html>
+<head>
+<title>Welcome</title>
+</head>
+
+<body bgcolor="#ffffff" >
+<img  src="image/graph/banner1-chi.gif" width="487" height="73" >
+
+<table border=0>
+<tr><td><img  src="image/photo/meishu1.jpg" width="288" height="416" >
+ </td>
+<td><pre>
+ 
+                 
+              
+  
+  
+ 
+  
+
+           
+                  <img src="image/graph/sig.gif" width="130" height="43" ></pre></td></tr>
+
+</table>
+
+<Script Language="Javascript">
+
+<!-- Hiding
+/*      Script by Lefteris Haritou      
+        Copyright ?997-1998 
+        http://www.geocities.com/~lef
+        This Script is free as long 
+        as you keep the above credit !
+*/
+bname=navigator.appName;
+bversion=parseInt(navigator.appVersion)
+if ((bname=="Netscape" && bversion>=4) || (bname=="Microsoft Internet Explorer" && bversion>=4))
+window.onload=start
+else
+stop();
+window.onunload=stop
+if (bname=="Netscape"){
+brows=true
+dt=2
+}
+else{
+brows=false
+dt=20
+}
+var z=0;
+var msg=0;
+var rgb=0;
+var link=false;
+var status=true;
+var updwn=false;
+var message= new Array();
+var value=0;
+var icount=0;
+var h=window.innerHeight;
+var w=window.innerWidth;
+var timer1;
+var timer2;
+var timer3;
+var convert = new Array()
+var hexbase= new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F");
+
+// Put here your own messages. Add as many as you wan't (Do not edit anything else in the Script except the lines below)
+
+var bgcolor="#3569E3"; //Color of background
+var color="#FFFF00";  //Color of the Letters
+
+message[0]='藝 術 無 涯'
+message[1]='吾 生 有 涯'
+message[2]='欣 然 回 首 '
+message[3]='一 甲 子 之 追 尋 探 索'
+message[4]='尚 未 能 達 到'
+message[5]='真 善 美 之 境 界.....'
+
+
+// Put here your own messages. Add as many as you wan't (Do not edit anything else in the Script except the lines above)
+
+for (x=0; x<16; x++){
+for (y=0; y<16; y++){
+convert[value]= hexbase[x] + hexbase[y];
+value++;
+}
+}
+
+redx=color.substring(1,3);
+greenx=color.substring(3,5);
+bluex=color.substring(5,7);
+hred=eval(parseInt(redx,16));
+hgreen=eval(parseInt(greenx,16));
+hblue=eval(parseInt(bluex,16));
+eredx=bgcolor.substring(1,3);
+egreenx=bgcolor.substring(3,5);
+ebluex=bgcolor.substring(5,7);
+ered=eval(parseInt(eredx,16));
+egreen=eval(parseInt(egreenx,16));
+eblue=eval(parseInt(ebluex,16));
+red=ered;
+green=egreen;
+blue=eblue;
+
+function start(){
+if ((bname=="Netscape" && bversion>=4) || (bname=="Microsoft Internet Explorer" && bversion>=4)){
+link=false;
+updwn=true;
+if (brows)
+res=document.layers['textanim'].top
+else{
+textanim.innerHTML='<P Class="main" Align="Center">'+message[msg]+'</P>'
+res=textanim.style.top
+for (x=0; x<document.all.length; x++)
+if(document.all[x].id=="textanimlink")
+link=true;
+}
+up()
+}
+}
+
+function stop(){
+clearTimeout(timer1);
+clearTimeout(timer2);
+clearTimeout(timer3);
+}
+
+function resz(){
+h=window.innerHeight;
+w=window.innerWidth;
+if (updwn)
+timer1=setTimeout('up()',1000)
+else
+timer2=setTimeout('down()',1000)
+}
+
+function breakf(){
+if (status){
+clearTimeout(timer1);
+clearTimeout(timer2);
+status=false
+return;
+}
+else{
+status=true;
+if (updwn)
+timer1=setTimeout('up()',dt)
+else
+timer2=setTimeout('down()',dt)
+}
+}
+
+
+function up(){
+if (red<hred){
+if ((red+7)<hred)
+red+=7;
+else
+red=hred
+redx = convert[red]
+}
+else{
+if ((red-7)>hred)
+red-=7;
+else
+red=hred
+redx = convert[red]
+}
+
+if (green<hgreen){
+if ((green+7)<hgreen)
+green+=7;
+else
+green=hgreen
+greenx = convert[green]
+}
+else{
+if ((green-7)>hgreen)
+green-=7;
+else
+green=hgreen
+greenx = convert[green]
+}
+
+if (blue<hblue){
+if ((blue+7)<hblue)
+blue+=7;
+else
+blue=hblue
+bluex = convert[blue]
+}
+else{
+if ((blue-7)>hblue)
+blue-=7;
+else
+blue=hblue
+bluex = convert[blue]
+}
+
+rgb = "#"+redx+greenx+bluex;
+if (brows){
+document.layers['textanim'].document.linkColor=rgb;
+document.layers['textanim'].document.vlinkColor=rgb;
+if (window.innerHeight!=h || window.innerWidth!=w){
+clearTimeout(timer1);
+resz()
+return;
+}
+else{
+document.layers['textanim'].document.write('<P Class="main" Align="Center"><font color="'+rgb+'">'+message[msg]+'</font></P>')
+document.layers['textanim'].document.close();
+}
+}
+else{
+textanim.style.color=rgb;
+if(link)
+textanimlink.style.color=rgb;
+}
+if (z<38){
+if (brows)
+document.layers['textanim'].top--
+else
+textanim.style.posTop--
+z++
+timer1=setTimeout('up()',dt)
+}
+else
+{
+updwn=false;
+down()
+}
+}
+
+
+function down(){
+if (red<ered){
+if ((red+7)<ered)
+red+=7;
+else
+red=ered
+redx = convert[red]
+}
+else{
+if ((red-7)>ered)
+red-=7;
+else
+red=ered
+redx = convert[red]
+}
+
+if (green<egreen){
+if ((green+7)<egreen)
+green+=7;
+else
+green=egreen
+greenx = convert[green]
+}
+else{
+if ((green-7)>egreen)
+green-=7;
+else
+green=egreen
+greenx = convert[green]
+}
+
+if (blue<eblue){
+if ((blue+7)<eblue)
+blue+=7;
+else
+blue=eblue
+bluex = convert[blue]
+}
+else{
+if ((blue-7)>eblue)
+blue-=7;
+else
+blue=eblue
+bluex = convert[blue]
+}
+
+rgb = "#"+redx+greenx+bluex;
+if (brows){
+document.layers['textanim'].document.linkColor=rgb;
+document.layers['textanim'].document.vlinkColor=rgb;
+if (window.innerHeight!=h || window.innerWidth!=w){
+clearTimeout(timer2);
+resz()
+return;
+}
+else{
+document.layers['textanim'].document.write('<P Class="main" Align="Center"><font color="'+rgb+'">'+message[msg]+'</font></P>')
+document.layers['textanim'].document.close();
+}
+}
+else{
+textanim.style.color=rgb;
+if(link)
+textanimlink.style.color=rgb;
+}
+
+if (z<76){
+if (brows)
+document.layers['textanim'].top--
+else
+textanim.style.posTop--
+z++
+timer2=setTimeout('down()',dt)
+}
+else
+{
+if (brows){
+document.layers['textanim'].document.write('')
+document.layers['textanim'].document.close();
+}
+else
+textanim.innerHTML='';
+window.clearInterval(timer2);
+if(msg<message.length-1){
+msg++;
+z=0;
+if (brows){
+document.layers['textanim'].top=res;
+}
+else
+textanim.style.top=res;
+timer3=setTimeout('start()',100);
+}
+else
+{
+msg=0;
+z=0;
+if (brows)
+document.layers['textanim'].top=res;
+else
+textanim.style.top=res;
+if (icount<4)
+timer3=setTimeout('start()',2000);
+icount++
+}
+}
+}
+// done hiding -->
+
+</Script>
+<style type="text/css">
+<!-- 
+all.textanimlink {
+text-decoration : none;
+}
+P.main {
+font-family : Arial;
+font-size : 10pt;
+font-weight : bold;
+}
+  A:LINK {
+text-decoration : none;
+font-family:Arial;
+font-size: 10pt;
+font-weight: bold;              
+}
+  A:VISITED {
+text-decoration : none;
+font-family:Arial;
+font-size: 10pt;
+font-weight: bold;
+}
+A:HOVER {
+color:#FF0000;
+}
+-->
+</style>
+<body>
+<Div id="textanim" style="position: absolute; left350; top: 300; width:100" onclick="breakf()">
+</Div>
+<Layer name="textanim" left=350 top=300 width=90>
+</Layer>
+
+
+</body>
+</html>
